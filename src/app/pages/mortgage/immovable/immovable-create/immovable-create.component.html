@@ -1,0 +1,91 @@
+<form [formGroup]="form" (submit)="save()" [nbSpinner]="loader" nbSpinnerStatus="success" nbSpinnerMessage="Cargando...">
+  <div class="modal-body">
+    <div class="row">
+      <div class="col-sm-6">
+        <debtor-select formControlName="debtor_id" (change)="onDebtorChange($event)"></debtor-select>
+      </div>
+
+      <div class="col-sm-6">
+        <div class="form-group">
+          <label for="city_id">Ciudad</label>
+          <select nbInput class="form-control" id="city_id" formControlName="city_id">
+            <option *ngFor="let city of cities" [value]="city.id">{{city.name}}, {{city.department}}</option>
+          </select>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-6">
+        <div class="form-group">
+          <label for="address">Dirección</label>
+          <input nbInput type="text" class="form-control" formControlName="address" id="address">
+        </div>
+      </div>
+      <div class="col-sm-6">
+        <div class="form-group">
+          <label for="phone">Teléfono</label>
+          <input nbInput type="text" class="form-control" formControlName="phone" id="phone">
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-sm-6">
+        <div class="form-group">
+          <label for="nearto">Barrio</label>
+          <input nbInput type="text" class="form-control" formControlName="nearto" id="nearto">
+        </div>
+      </div>
+      <div class="col-sm-6">
+        <div class="form-group">
+          <label for="type">Tipo</label>
+          <select nbInput class="form-control" id="type" formControlName="type">
+            <option>--Seleccione un tipo de inmueble--</option>
+            <option *ngFor="let type of immovable_types" [value]="type">{{type}}</option>
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-sm-6">
+        <div class="form-group">
+          <label for="writting_number">Número de escritura</label>
+          <input nbInput type="text" class="form-control" formControlName="writting_number" id="writting_number">
+        </div>
+      </div>
+      <div class="col-sm-6">
+        <div class="form-group">
+          <label for="registration">Matricula inmobiliaria</label>
+         <input nbInput type="text" class="form-control" formControlName="registration" id="registration">
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-6">
+        <div class="form-group">
+          <label for="constitution">Fecha constitución</label>
+          <input nbInput type="date" class="form-control" formControlName="constitution" id="constitution">
+        </div>
+      </div>
+      <div class="col-sm-6">
+        <div class="form-group">
+          <label for="writting_delivery">Fecha entrega escritura</label>
+          <input nbInput type="date" class="form-control" formControlName="writting_delivery" id="writting_delivery">
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-6">
+        <div class="form-group">
+          <label for="notary">Notaría</label>
+          <input nbInput type="number" class="form-control" formControlName="notary" id="notary">
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button nbButton status="primary" (click)="closeWindow()" ghost>Cancelar</button>
+    <button status="success" nbButton outline [disabled]="form.invalid">Guardar</button>
+  </div>
+</form>

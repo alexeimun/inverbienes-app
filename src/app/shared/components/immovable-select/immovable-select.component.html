@@ -1,0 +1,16 @@
+<div class="form-group">
+  <label for="immovable_id">Inmueble</label>
+  <input nbInput autocomplete="off" type="text" [readonly]="readonly" class="form-control" id="immovable_id" (focus)="toggleList(true)" (blur)="toggleList(false)" [(ngModel)]="input">
+  <div class="list-items" *ngIf="showList && !readonly">
+    <nb-card *ngFor="let immovable of immovables|filter:input" (click)="selectSearchResult(immovable)">
+      <nb-card-body>
+        <i class="nb-arrow-right"></i> <i>Dirección: </i> <b>{{immovable.address}}</b>, <i>Nro escritura:</i> <b>{{immovable.writting_number}}</b>
+      </nb-card-body>
+    </nb-card>
+    <nb-card *ngIf="(!immovables.length || !(immovables|filter:input).length) && !readonly">
+      <nb-card-body>
+        <i class="nb-close-circled"></i> No hay inmuebles disponibles
+      </nb-card-body>
+    </nb-card>
+  </div>
+</div>

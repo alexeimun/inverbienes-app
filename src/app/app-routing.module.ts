@@ -1,17 +1,19 @@
 import { ExtraOptions, RouterModule, Routes } from '@angular/router';
 import { NgModule } from '@angular/core';
 import {
-  NbAuthComponent,
-  NbLoginComponent,
   NbLogoutComponent,
   NbRegisterComponent,
   NbRequestPasswordComponent,
   NbResetPasswordComponent,
 } from '@nebular/auth';
+import { NbLoginComponent } from '@app/@theme/auth/login/login.component';
+import { NbAuthComponent } from '@app/@theme/auth/auth.component';
+import { AuthGuard } from '@app/@core/services';
 
 const routes: Routes = [
   {
     path: 'pages',
+    canActivate: [AuthGuard],
     loadChildren: () => import('app/pages/pages.module')
       .then(m => m.PagesModule),
   },

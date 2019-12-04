@@ -1,0 +1,25 @@
+<nb-card class="main-wrapper">
+  <nb-card-header>
+    <h4 class="text-center"><i class="fa fa-paperclip"></i> Ingresos diarios</h4>
+  </nb-card-header>
+  <nb-card-body>
+    <form [formGroup]="form" (submit)="print()">
+      <div class="row">
+        <div class="col-sm-4 mx-auto">
+          <div class="form-group">
+            <label for="date">Fecha</label>
+            <input nbInput type="date" formControlName="date" class="form-control" id="date">
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-2 mx-auto">
+          <div class="form-group">
+            <button status="success" nbButton outline [disabled]="form.invalid || loader"> Generar informe</button>
+          </div>
+        </div>
+      </div>
+    </form>
+  </nb-card-body>
+</nb-card>
+<daily-income-printable></daily-income-printable>

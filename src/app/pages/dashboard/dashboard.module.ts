@@ -1,69 +1,30 @@
 import { NgModule } from '@angular/core';
-import {
-  NbActionsModule,
-  NbButtonModule,
-  NbCardModule,
-  NbTabsetModule,
-  NbUserModule,
-  NbRadioModule,
-  NbSelectModule,
-  NbListModule,
-  NbIconModule,
-} from '@nebular/theme';
-import { NgxEchartsModule } from 'ngx-echarts';
-
-import { ThemeModule } from '../../@theme/theme.module';
+import { ThemeModule } from '@app/@theme/theme.module';
 import { DashboardComponent } from './dashboard.component';
-import { StatusCardComponent } from './status-card/status-card.component';
-import { ContactsComponent } from './contacts/contacts.component';
-import { RoomsComponent } from './rooms/rooms.component';
-import { RoomSelectorComponent } from './rooms/room-selector/room-selector.component';
-import { TemperatureComponent } from './temperature/temperature.component';
-import { TemperatureDraggerComponent } from './temperature/temperature-dragger/temperature-dragger.component';
-import { KittenComponent } from './kitten/kitten.component';
-import { SecurityCamerasComponent } from './security-cameras/security-cameras.component';
-import { ElectricityComponent } from './electricity/electricity.component';
-import { ElectricityChartComponent } from './electricity/electricity-chart/electricity-chart.component';
-import { WeatherComponent } from './weather/weather.component';
-import { SolarComponent } from './solar/solar.component';
-import { PlayerComponent } from './rooms/player/player.component';
-import { TrafficComponent } from './traffic/traffic.component';
-import { TrafficChartComponent } from './traffic/traffic-chart.component';
-import { FormsModule } from '@angular/forms';
+import { SharedModule } from '@app/shared/shared.module';
+import { RouterModule } from '@angular/router';
+import { Ng2SmartTableModule } from 'ng2-smart-table';
+import { DashboardRoutingModule } from '@app/pages/dashboard/dashboard-routing.module';
+import { GeneralInfoComponent } from '@app/pages/dashboard/general-info/general-info.component';
+import { DebtInfoComponent } from '@app/pages/dashboard/debt-info/debt-info.component';
+import { NbCardModule, NbIconModule, NbWindowModule } from '@nebular/theme';
 
 @NgModule({
   imports: [
-    FormsModule,
+    RouterModule,
     ThemeModule,
-    NbCardModule,
-    NbUserModule,
-    NbButtonModule,
-    NbTabsetModule,
-    NbActionsModule,
-    NbRadioModule,
-    NbSelectModule,
-    NbListModule,
+    SharedModule,
+    Ng2SmartTableModule,
+    DashboardRoutingModule,
     NbIconModule,
-    NbButtonModule,
-    NgxEchartsModule,
+    NbCardModule,
+    NbWindowModule.forChild()
   ],
   declarations: [
     DashboardComponent,
-    StatusCardComponent,
-    TemperatureDraggerComponent,
-    ContactsComponent,
-    RoomSelectorComponent,
-    TemperatureComponent,
-    RoomsComponent,
-    KittenComponent,
-    SecurityCamerasComponent,
-    ElectricityComponent,
-    ElectricityChartComponent,
-    WeatherComponent,
-    PlayerComponent,
-    SolarComponent,
-    TrafficComponent,
-    TrafficChartComponent,
-  ],
+    GeneralInfoComponent,
+    DebtInfoComponent,
+  ]
 })
-export class DashboardModule { }
+export class DashboardModule {
+}

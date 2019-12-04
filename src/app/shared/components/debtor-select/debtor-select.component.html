@@ -1,0 +1,15 @@
+<div class="form-group">
+  <label for="debtor_id">Deudor</label>
+  <input nbInput autocomplete="off" type="text" [readonly]="readonly" class="form-control" id="debtor_id" (focus)="toggleList(true)" (blur)="toggleList(false)" [(ngModel)]="input">
+  <div class="list-items" *ngIf="showList && !readonly">
+    <nb-card *ngFor="let debtor of debtors|filter:input" (click)="selectSearchResult(debtor)">
+      <nb-card-body>
+        <i class="nb-arrow-right"></i> {{debtor.name}} - <b>{{debtor.document}}</b>
+      </nb-card-body>
+    </nb-card>
+    <nb-card *ngIf="(!debtors.length || !(debtors|filter:input).length) && !readonly">
+      <nb-card-body>
+       <i class="nb-close-circled"></i> No hay deudores para mostrar</nb-card-body>
+    </nb-card>
+  </div>
+</div>

@@ -1,0 +1,22 @@
+@import '../../../@theme/styles/themes'
+
+.list-items
+  position: absolute
+  width: 92%
+  z-index: 99
+  nb-card
+    position: relative
+    margin: 0 !important
+    border-radius: 0
+    cursor: pointer
+    &:hover
+      background-color: #c2c8d0
+      &::before
+        position: absolute
+        content: ''
+        height: 100%
+        width: 6px
+        left: 0
+        top: 0
+        background-color: nb-theme(color-success-default)
+        border-radius: nb-theme(border-radius)

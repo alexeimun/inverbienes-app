@@ -1,0 +1,31 @@
+<table class="table table-striped">
+  <thead>
+  <tr>
+    <th scope="col">#</th>
+    <th scope="col">Tipo</th>
+    <th scope="col">Valor</th>
+    <th scope="col">Concepto</th>
+    <th scope="col">Fecha</th>
+    <th scope="col"># Recibo</th>
+    <th scope="col"></th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let payment of _payments;let i=index">
+    <td>{{i+1}}</td>
+    <td>{{invoice_types[payment.type-1].name}}</td>
+    <td>{{toCash(payment.value)}}</td>
+    <td>{{payment.concept}}</td>
+    <td>{{payment.created_at}}</td>
+    <td><span (click)="printeable(payment.invoice_id)">#{{payment.consecutive}}</span></td>
+    <td (click)="remove(payment.invoice_id)" class="remove">Borrar <i class="nb-trash"></i></td>
+  </tr>
+  </tbody>
+</table>
+
+<nb-card *ngIf="!_payments.length">
+  <nb-card-header class="text-center">
+     <i class="nb-alert"></i> No se hallaron pagos para esta hipoteca.
+  </nb-card-header>
+</nb-card>
+

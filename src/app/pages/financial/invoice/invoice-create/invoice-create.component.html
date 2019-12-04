@@ -1,0 +1,175 @@
+<nb-card class="main-wrapper">
+  <nb-card-header>
+    <h4 class="text-center"><i class="fa fa-list"></i> Nuevo Recibo - #{{consecutive}}</h4>
+  </nb-card-header>
+  <nb-card-body>
+    <form [formGroup]="form" (submit)="save()">
+      <div class="row">
+        <div class="mx-auto col-sm-5">
+          <mortgage-select formControlName="mortgage_id" (onChange)="onChange($event)"></mortgage-select>
+        </div>
+      </div>
+    </form>
+    <div *ngIf="mortgage">
+      <nb-card *ngIf="mortgage.capital == 0">
+        <nb-card-body class="cancelled-msg"><i class="nb-checkmark"></i>¡Esta hipoteca ya se ha cancelado!</nb-card-body>
+      </nb-card>
+
+      <mortgage-info [mortgage]="mortgage" (print)="printInvoice($event)" [tabs]="tabs"></mortgage-info>
+      <hr>
+      <h4 class="text-center">Pago</h4>
+      <div class="row">
+        <div class="mx-auto col-md-4">
+          <div class="form-group">
+            <label for="type">Tipo de recibo</label>
+            <select nbInput class="form-control" id="type" [(ngModel)]="tempPay.type" (change)="changeInvoiceType()">
+              <option disabled>Seleccione un tipo de pago</option>
+              <option *ngFor="let type of invoice_types" [value]="type.value">{{type.name}}</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="mx-auto col-md-4">
+          <div class="form-group">
+            <label for="created_at">Fecha</label>
+            <input nbInput type="date" class="form-control" id="created_at" [(ngModel)]="tempPay.created_at">
+          </div>
+        </div>
+      </div>
+
+      <!--Fields dynamic-->
+      <div class="row" *ngIf="fields.capital_increase">
+        <div class="mx-auto col-md-4">
+          <div class="form-group">
+            <label for="capital_increase">Valor ampliación</label>
+            <input nbInput type="number" min="0" class="form-control" id="capital_increase"
+                   (ngModelChange)="changeCapitalIncrease($event)" [(ngModel)]="tempPay.capital_increase">
+          </div>
+        </div>
+      </div>
+
+      <div class="row" *ngIf="fields.period_extension">
+        <div class="mx-auto col-md-4">
+          <div class="form-group">
+            <label for="period_extension">Periodo (Meses)</label>
+            <input nbInput type="number" min="0" class="form-control" id="period_extension"
+                   (ngModelChange)="changePeriod($event)" [(ngModel)]="tempPay.period_extension">
+          </div>
+        </div>
+      </div>
+
+      <div class="row" *ngIf="fields.value">
+        <div class="mx-auto col-md-4">
+          <div class="form-group">
+            <label for="value">{{tempPay.type==3?'Comisión':'Valor'}}</label>
+            <input nbInput type="number" min="0" class="form-control" id="value" [(ngModel)]="tempPay.value">
+          </div>
+        </div>
+      </div>
+
+      <div class="row" *ngIf="fields.percent">
+        <div class="mx-auto col-md-4">
+          <div class="form-group">
+            <label for="percent">%</label>
+            <input nbInput type="number" min="0" class="form-control" id="percent" [(ngModel)]="tempPay.percent"
+                   (ngModelChange)="changePercent($event)">
+          </div>
+        </div>
+      </div>
+
+      <div class="row" *ngIf="fields.concept">
+        <div class="mx-auto col-md-4">
+          <div class="form-group">
+            <label for="concept">Concepto</label>
+            <input nbInput class="form-control" id="concept" [(ngModel)]="tempPay.concept">
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-2 mx-auto">
+          <div class="form-group">
+            <button status="primary" nbButton outline [disabled]="(!tempPay.concept || !tempPay.value || (!tempPay.period_extension && tempPay.type==4))
+             && tempPay.type!=2" (click)="addTempPay()" type="button"> Agregar pago
+            </button>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-8 mx-auto">
+          <table class="table table-striped">
+            <thead>
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col">Tipo de pago</th>
+              <th scope="col">Concepto</th>
+              <th scope="col">Valor</th>
+              <th scope="col">Acción</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let pay of tempPays;let i=index">
+              <td>{{i+1}}</td>
+              <td>{{invoice_types[pay.type - 1].name}}</td>
+              <td>{{pay.concept}}</td>
+              <td>{{toCash(pay.value)}}</td>
+              <td><i class="nb-trash temp-trash" (click)="removePay(i)"></i></td>
+            </tr>
+            <tr>
+              <th colspan="3" class="text-right">Total:</th>
+              <td>{{toCash(sumTempPays())}}</td>
+              <td></td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <hr>
+      <div class="row">
+        <div class="mx-auto col-md-4">
+          <div class="form-group">
+            <label for="form_form">Forma de pago</label>
+            <select nbInput class="form-control" id="form_form" [(ngModel)]="formPay.type" (change)="changeInvoiceType()">
+              <option disabled>Seleccione un tipo de pago</option>
+              <option value="1">Efectivo</option>
+              <option value="2">Consignación</option>
+            </select>
+          </div>
+        </div>
+      </div>
+      <div *ngIf="formPay.type == 2">
+        <div class="row">
+          <div class="mx-auto col-md-4">
+            <div class="form-group">
+              <label for="form_pay_bank">Banco</label>
+              <input nbInput class="form-control" id="form_pay_bank" [(ngModel)]="formPay.bank">
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="mx-auto col-md-4">
+            <div class="form-group">
+              <label for="form_pay_check">Nro cheque</label>
+              <input nbInput class="form-control" id="form_pay_check" [(ngModel)]="formPay.check">
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-sm-2 mx-auto">
+          <div class="form-group">
+            <button status="success" nbButton outline (click)="payInvoice()" nbSpinnerStatus="success" nbSpinnerSize="large"
+                    nbSpinnerMessage="Procesando..."
+                    [nbSpinner]="loader"
+                    [disabled]="(formPay.type == 2 && (!formPay.bank||!formPay.check)) || !tempPays.length"
+                    type="button">Pagar recibo
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </nb-card-body>
+</nb-card>
+<invoice-printable></invoice-printable>

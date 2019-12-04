@@ -1,0 +1,118 @@
+<form [formGroup]="form" (submit)="save()" [nbSpinner]="loader" nbSpinnerStatus="success" nbSpinnerMessage="Cargando...">
+  <div class="modal-body">
+    <div class="row">
+      <div class="col-sm-6">
+        <div class="form-group">
+          <label for="name">Nombre</label>
+          <input type="text" nbInput class="form-control" formControlName="name" id="name" required>
+        </div>
+      </div>
+
+      <div class="col-sm-6">
+        <div class="form-group">
+          <label for="document">Documento</label>
+          <input type="text" nbInput class="form-control" formControlName="document" id="document">
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-sm-6">
+        <div class="form-group">
+          <label for="address">Dirección</label>
+          <input type="text" nbInput class="form-control" formControlName="address" id="address">
+        </div>
+      </div>
+
+      <div class="col-sm-6">
+        <div class="form-group">
+          <label for="city_id">Ciudad</label>
+          <select class="form-control" id="city_id" formControlName="city_id" nbInput>
+            <option *ngFor="let city of cities" [value]="city.id">{{city.name}}, {{city.department}}</option>
+          </select>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-6">
+        <div class="form-group">
+          <label for="phone">Teléfono</label>
+          <input type="text" class="form-control" formControlName="phone" id="phone" nbInput>
+        </div>
+      </div>
+
+      <div class="col-sm-6">
+        <div class="form-group">
+          <label for="cell_phone">Celular</label>
+          <input type="text" class="form-control" formControlName="cell_phone" id="cell_phone" nbInput>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-sm-6">
+        <div class="form-group">
+          <label for="email">Correo</label>
+          <input type="text" class="form-control" formControlName="email" id="email" nbInput>
+        </div>
+      </div>
+      <div class="col-sm-6">
+        <div class="form-group">
+          <label for="attendant">Encargado</label>
+          <input type="text" class="form-control" formControlName="attendant" id="attendant" nbInput>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-12"></div>
+    </div>
+    <div class="row">
+      <div class="mx-auto add-reference">
+        <div class="form-group">
+          <button type="button" status="success" nbButton outline (click)="addReference()">Agregar referencia</button>
+        </div>
+      </div>
+    </div>
+    <div formArrayName="references" *ngFor="let r of formData.controls; let i = index;">
+      <div [formGroupName]="i" class="row">
+      <div class="col-sm-6">
+        <div class="form-group">
+          <label [for]="'ref_type-'+i">Tipo</label>
+          <select [id]="'ref_type-'+i" class="form-control" formControlName="type" nbInput>
+            <option value="Personal">Personal</option>
+            <option value="Familiar">Familiar</option>
+          </select>
+        </div>
+      </div>
+      <div class="col-sm-6">
+        <div class="form-group">
+          <label [for]="'ref_name-'+i">Nombre</label>
+          <input min="0" type="text" class="form-control" formControlName="name" [id]="'ref_name-'+i" placeholder="Nombre" nbInput>
+        </div>
+      </div>
+      <div class="col-sm-6">
+        <div class="form-group">
+          <label [for]="'ref_phone-'+i">Teléfono</label>
+          <input min="0" type="number" class="form-control" formControlName="phone" [id]="'ref_phone-'+i" placeholder="Teléfono" nbInput>
+        </div>
+      </div>
+        <div class="col-sm-6">
+          <div class="form-group">
+            <label [for]="'ref_address-'+i">Dirección</label>
+            <input min="0" type="text" class="form-control" formControlName="address" [id]="'ref_address-'+i" placeholder="Dirección" nbInput>
+          </div>
+        </div>
+        <div class=" mx-auto">
+          <div class="form-group">
+            <button status="danger" type="button" nbButton outline (click)="removeReference(i)">Eliminar referencia #{{i+1}}</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal-footer">
+    <button type="button" status="primary" (click)="closeWindow()" nbButton ghost>Cancelar</button>
+    <button type="submit" status="success" [disabled]="form.invalid" nbButton outline>Guardar</button>
+  </div>
+</form>

@@ -1,0 +1,41 @@
+<nb-card class="main-wrapper">
+  <nb-card-header>
+    <h4 class="text-center"><i class="fa fa-hashtag"></i> Consecutivos</h4>
+  </nb-card-header>
+  <nb-card-body>
+    <form [formGroup]="form" (submit)="save()" [nbSpinner]="loader" nbSpinnerStatus="success" nbSpinnerMessage="Guardando...">
+      <div class="row">
+        <div class="col-sm-4 mx-auto">
+          <div class="form-group">
+            <label for="invoice">Recibo</label>
+            <input nbInput type="number" class="form-control" formControlName="invoice" id="invoice">
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-4 mx-auto">
+          <div class="form-group">
+            <label for="solicitude">Solicitud</label>
+            <input nbInput type="number" class="form-control" formControlName="solicitude" id="solicitude">
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-4 mx-auto">
+          <div class="form-group">
+            <label for="daily_block">Cuadre diario</label>
+            <input nbInput type="number" class="form-control" formControlName="daily_block" id="daily_block">
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-2 mx-auto">
+          <div class="form-group">
+            <button status="success" nbButton outline [disabled]="form.invalid"> Guardar</button>
+          </div>
+        </div>
+      </div>
+    </form>
+  </nb-card-body>
+</nb-card>
+<report-debtor-printable></report-debtor-printable>

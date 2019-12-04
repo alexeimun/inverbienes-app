@@ -1,0 +1,25 @@
+<nb-card>
+  <nb-card-header>
+    Recibos
+  </nb-card-header>
+
+  <nb-card-body>
+    <nb-card *ngIf="lastInvoice">
+      <nb-card-header class="last-invoice-h">
+       <i class="fa fa-warning"></i> Último recibo creado.
+      </nb-card-header>
+      <nb-card-body class="last-invoice-b">
+        El recibo <a [href]="hash" (click)="print({data:{id:lastInvoice.id}})">Nro {{lastInvoice.consecutive}}</a> del deudor <b>{{lastInvoice.mortgage.debtor.name}}</b> por un total de <b>{{lastInvoice.total}}</b>.
+        {{date(lastInvoice.updated_at)}}
+      </nb-card-body>
+      <nb-card-footer>
+        <button class="btn btn-hero-danger" (click)="remove()"><i class="fa fa-undo"></i> Deshacer</button>
+      </nb-card-footer>
+
+    </nb-card>
+    <ng2-smart-table [settings]="settings" (delete)="cancel($event)" (edit)="print($event)"
+                     [source]="source">
+    </ng2-smart-table>
+  </nb-card-body>
+</nb-card>
+<invoice-printable></invoice-printable>
