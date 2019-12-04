@@ -1,0 +1,30 @@
+<nb-card class="main-wrapper">
+  <nb-card-header>
+    <h4 class="text-center"><i class="fa fa-paperclip"></i> Certificado de Paz y Salvo</h4>
+  </nb-card-header>
+  <nb-card-body>
+    <form [formGroup]="form" (submit)="print()" [nbSpinner]="loader" nbSpinnerStatus="success" nbSpinnerMessage="Cargando...">
+      <div class="row">
+        <div class="mx-auto col-sm-5">
+          <mortgage-select formControlName="mortgage_id" (onChange)="onChange($event)"></mortgage-select>
+        </div>
+      </div>
+      <div class="row">
+        <div class="mx-auto col-sm-5">
+          <div class="form-group">
+            <label for="date">Fecha</label>
+            <input nbInput type="date" class="form-control" formControlName="date" id="date">
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-2 mx-auto">
+          <div class="form-group">
+            <button status="success" nbButton outline [disabled]="form.invalid"> Crear paz y salvo</button>
+          </div>
+        </div>
+      </div>
+    </form>
+  </nb-card-body>
+</nb-card>
+<peace-and-save-printable></peace-and-save-printable>

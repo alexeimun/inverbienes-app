@@ -1,0 +1,14 @@
+<nb-card>
+  <nb-card-header>
+    Acreedores
+  </nb-card-header>
+
+  <nb-card-body>
+    <div class="form-group">
+      <button status="success" nbButton outline (click)="saveModal()">Crear Acreedor</button>
+    </div>
+    <ng2-smart-table [settings]="settings" (delete)="onDelete($event)" (edit)="saveModal($event)"
+                     [source]="source">
+    </ng2-smart-table>
+  </nb-card-body>
+</nb-card>

@@ -1,0 +1,101 @@
+<form [formGroup]="form" (submit)="save()" [nbSpinner]="loader" nbSpinnerStatus="success" nbSpinnerMessage="Cargando...">
+  <div class="modal-body">
+    <div class="row">
+      <div class="col-sm-6">
+        <div class="form-group">
+          <label for="name">Nombre</label>
+          <input nbInput type="text" class="form-control" formControlName="name" id="name" required>
+        </div>
+      </div>
+
+      <div class="col-sm-6">
+        <div class="form-group">
+          <label for="document">Documento</label>
+          <input nbInput type="text" class="form-control" formControlName="document" id="document">
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-sm-6">
+        <div class="form-group">
+          <label for="address">Dirección</label>
+          <input nbInput type="text" class="form-control" formControlName="address" id="address">
+        </div>
+      </div>
+
+      <div class="col-sm-6">
+        <div class="form-group">
+          <label for="city_id">Ciudad</label>
+          <select nbInput class="form-control" id="city_id" formControlName="city_id">
+            <option *ngFor="let city of cities" [value]="city.id">{{city.name}}, {{city.department}}</option>
+          </select>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-6">
+        <div class="form-group">
+          <label for="phone">Teléfono</label>
+          <input nbInput type="text" class="form-control" formControlName="phone" id="phone">
+        </div>
+      </div>
+
+      <div class="col-sm-6">
+        <div class="form-group">
+          <label for="cell_phone">Celular</label>
+          <input nbInput type="text" class="form-control" formControlName="cell_phone" id="cell_phone">
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-sm-6">
+        <div class="form-group">
+          <label for="email">Correo</label>
+          <input nbInput type="text" class="form-control" formControlName="email" id="email">
+        </div>
+      </div>
+      <div class="col-sm-6">
+        <div class="form-group">
+          <label for="account_name">Nombre de la cuenta</label>
+          <input nbInput type="text" class="form-control" formControlName="account_name" id="account_name">
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-sm-6">
+        <div class="form-group">
+          <label for="account_number">Número cuenta</label>
+          <input nbInput type="text" class="form-control" formControlName="account_number" id="account_number">
+        </div>
+      </div>
+      <div class="col-sm-6">
+        <div class="form-group">
+          <label for="portfolio_management">Manejo cartera</label>
+          <select nbInput class="form-control" id="portfolio_management" formControlName="portfolio_management">
+            <option value="1">Si</option>
+            <option value="2">No</option>
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-sm-6">
+        <div class="form-group">
+          <label for="personally_claim">Reclama personalmente</label>
+          <select nbInput class="form-control" id="personally_claim" formControlName="personally_claim">
+            <option value="1">Si</option>
+            <option value="2">No</option>
+          </select>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button type="button" status="primary" (click)="closeWindow()" nbButton ghost>Cancelar</button>
+    <button type="submit" status="success" [disabled]="form.invalid" nbButton outline>Guardar</button>
+  </div>
+</form>

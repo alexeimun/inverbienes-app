@@ -1,0 +1,74 @@
+<nb-card class="main-wrapper">
+  <nb-card-header>
+    <h4 class="text-center"><i class="fa fa-cube"></i> Empresa</h4>
+  </nb-card-header>
+  <nb-card-body>
+    <form [formGroup]="form" (submit)="save()" [nbSpinner]="loader" nbSpinnerStatus="success" nbSpinnerMessage="Guardando...">
+      <div class="row">
+        <div class="col-sm-4 mx-auto">
+          <div class="form-group">
+            <label for="ceo">Gerente</label>
+            <input nbInput type="text" class="form-control" formControlName="ceo" id="ceo">
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-4 mx-auto">
+          <div class="form-group">
+            <label for="email">Email</label>
+            <input nbInput type="text" class="form-control" formControlName="email" id="email">
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-4 mx-auto">
+          <div class="form-group">
+            <label for="nit">NIT</label>
+            <input nbInput type="text" class="form-control" formControlName="nit" id="nit">
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-4 mx-auto">
+          <div class="form-group">
+            <label for="phone">Teléfono</label>
+            <input nbInput type="text" class="form-control" formControlName="phone" id="phone">
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-4 mx-auto">
+          <div class="form-group">
+            <label for="address">Dirección</label>
+            <input nbInput type="text" class="form-control" formControlName="address" id="address">
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-4 mx-auto">
+          <div class="form-group">
+            <label for="protocolist_name">Protocolista</label>
+            <input nbInput type="text" class="form-control" formControlName="protocolist_name" id="protocolist_name">
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-4 mx-auto">
+          <div class="form-group">
+            <label for="protocolist_phone">Teléfono protocolista</label>
+            <input nbInput type="text" class="form-control" formControlName="protocolist_phone" id="protocolist_phone">
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-sm-2 mx-auto">
+          <div class="form-group">
+            <button status="success" nbButton outline [disabled]="form.invalid"> Guardar</button>
+          </div>
+        </div>
+      </div>
+    </form>
+  </nb-card-body>
+</nb-card>
+<report-debtor-printable></report-debtor-printable>

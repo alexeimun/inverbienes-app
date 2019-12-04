@@ -1,0 +1,23 @@
+<table class="table table-striped">
+  <thead>
+  <tr>
+    <th scope="col">#</th>
+    <th scope="col">Valor</th>
+    <th scope="col">Concepto</th>
+    <th scope="col">Estado</th>
+    <th scope="col">Acción</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let interest of _interests;let i=index">
+    <td>{{i+1}}</td>
+    <td [contentEditable]="interest.state!=1" [textContent]="toCash(interest.value)" (input)="interest.value=polishValue($event.target.textContent)" (keypress)="numberOnly($event)"></td>
+    <td [contentEditable]="interest.state!=1" [textContent]="interest.concept" (input)="interest.concept=$event.target.textContent"></td>
+    <td [ngClass]="{pay: interest.state == 0, payed:interest.state==1, due:interest.state==2}">{{interest.status}}</td>
+    <td [ngClass]="{'text-center':interest.state==1, check:interest.state!=1}">
+    <nb-checkbox *ngIf="interest.state!=1 && !disabled" status="success" (change)="onChange(interest.check, i)" [(ngModel)]="interest.check" [disabled]="interest.disabled"></nb-checkbox>
+      <span *ngIf="interest.state==1" (click)="printeable(interest.invoice_id)">#{{interest.consecutive}}</span>
+    </td>
+  </tr>
+  </tbody>
+</table>

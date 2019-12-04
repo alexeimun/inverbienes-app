@@ -1,0 +1,15 @@
+<div class="row">
+  <div class="mx-auto">
+    <nb-tabset (changeTab)="changeTab($event)" fullWidth>
+      <nb-tab tabTitle="Datos" tabIcon="person-outline" [active]="_tabs.isData" responsive>
+        <tab-client-info [mortgage]="_mortgage"></tab-client-info>
+      </nb-tab>
+      <nb-tab tabTitle="Pagos" tabIcon="credit-card-outline" [active]="_tabs.isPayments" responsive>
+        <tab-client-payment [payments]="payments" (print)="printeable($event)"></tab-client-payment>
+      </nb-tab>
+      <nb-tab tabTitle="Intereses" tabIcon="list-outline" [active]="_tabs.isInterest" responsive>
+        <tab-client-interest [disabled]="disabled" [interests]="interests" (print)="printeable($event)"></tab-client-interest>
+      </nb-tab>
+    </nb-tabset>
+  </div>
+</div>

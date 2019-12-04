@@ -1,0 +1,14 @@
+export const DELETE_CONFIRM_MSG = '¿Está seguro que desea eliminar este registro?';
+export const CANCEL_INVOICE_CONFIRM_MSG = '¿Está seguro que desea anular este recibo?';
+export const DELETE_SUCCEFUL_MSG = 'Registro eliminado correctamente';
+export const SAVE_SUCCEFUL_MSG = 'Datos almacenados correctamente';
+export const ERROR_PROMISSORY_NOTES = 'Los pagarés deben sumar el valor del capital inicial';
+export const ERROR_INVOICE_INTEREST = 'Debe seleccionar al menos un interes para pagar';
+export const SUCCESS_INVOICE_INTEREST = '¡Intereses agregados a la tabla de pagos!';
+export const SUCCESS_INVOICE_CANCELLED = '¡El recibo se ha anulado exitosamento!';
+export const ALREADY_INVOICE_CANCELLED = 'Este recibo ya se encuentra anulado';
+export const PAYMENTS_OVERFLOW = 'La suma de los abonos no puede superar el capital restante.';
+export const TRANSFER_SUCCESS = 'La transferencia se ha hecho exitosamente';
+export const SURE_TO_UNDO_INVOICE = '¿Está seguro que desea eliminar el último pago?';
+export const SUCCEED_TO_UNDO_INVOICE = 'El recibo se ha eliminado correctamente!';
+export const ERROR_TO_UNDO_INVOICE = 'Error al deshacer el recibo';

@@ -9,6 +9,9 @@
       ],
       "@nebular/*": [
         "../node_modules/@nebular/*"
+      ],
+      "@app/*": [
+        "app/*"
       ]
     }
   },

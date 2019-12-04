@@ -1,0 +1,60 @@
+{
+  "base": "http://api2-inv.hol.es",
+  "env": "local",
+  "identify": "http://",
+  "subdomains": {
+    "local": "",
+    "test": "pruebas",
+    "production": ""
+  },
+  "endPoints": {
+    "base": {},
+    "auth": {
+      "uri": "auth"
+    },
+    "debtor": {
+      "uri": "client/debtor",
+      "version": "v1"
+    },
+    "creditor": {
+      "uri": "client/creditor",
+      "version": "v1"
+    },
+    "mortgage": {
+      "uri": "mortgage/solicitude",
+      "version": "v1"
+    },
+    "payment": {
+      "uri": "mortgage/solicitude/payment",
+      "version": "v1"
+    },
+    "immovable": {
+      "uri": "mortgage/immovable",
+      "version": "v1"
+    },
+    "invoice": {
+      "uri": "financial/invoice",
+      "version": "v1"
+    },
+    "report": {
+      "uri": "financial/report",
+      "version": "v1"
+    },
+    "company": {
+      "uri": "company",
+      "version": "v1"
+    },
+    "dashboard": {
+      "uri": "common/dashboard",
+      "version": "v1"
+    },
+    "common": {
+      "uri": "common",
+      "version": "v1"
+    },
+    "credit-session": {
+      "uri": "mortgage/credit-session",
+      "version": "v1"
+    }
+  }
+}

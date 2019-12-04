@@ -1,0 +1,32 @@
+<div class="row">
+  <div class="col-xxxl-3 col-md-4" *ngFor="let statusCard of statusCards">
+    <status-card [title]="statusCard.title" [type]="statusCard.type" [routerLink]="'/pages/' + statusCard.link">
+      <i [ngClass]="statusCard.iconClass"></i>
+    </status-card>
+  </div>
+</div>
+
+<nb-card *ngIf="debt.mortgages.length || spinners.mortgages" [nbSpinner]="spinners.mortgages" nbSpinnerStatus="success" nbSpinnerMessage="Cargando...">
+  <nb-card-header>
+    Hipotecas a vencer
+  </nb-card-header>
+
+  <nb-card-body *ngIf="debt.mortgages.length">
+    <ng2-smart-table [settings]="settings" (edit)="view($event)" [source]="source">
+    </ng2-smart-table>
+  </nb-card-body>
+</nb-card>
+
+
+<nb-card *ngIf="debt.interests.length || spinners.interests" [nbSpinner]="spinners.interests" nbSpinnerStatus="success" nbSpinnerMessage="Cargando...">
+  <nb-card-header>
+    Intereses por cobrar
+  </nb-card-header>
+
+  <nb-card-body *ngIf="debt.interests.length">
+    <ng2-smart-table [settings]="settings2" (edit)="view($event)" [source]="source2">
+    </ng2-smart-table>
+  </nb-card-body>
+</nb-card>
+<invoice-printable></invoice-printable>
+

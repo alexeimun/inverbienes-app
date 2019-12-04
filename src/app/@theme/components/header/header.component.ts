@@ -1,59 +1,62 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { NbMediaBreakpointsService, NbMenuService, NbSidebarService, NbThemeService } from '@nebular/theme';
 
-import { UserData } from '../../../@core/data/users';
-import { LayoutService } from '../../../@core/utils';
+import { LayoutService } from '@app/@core/utils';
 import { map, takeUntil } from 'rxjs/operators';
-import { Subject } from 'rxjs';
+import { Subject, Subscription } from 'rxjs';
+import { CommonService } from '@app/@core/services';
+import { Storage } from '@app/@core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'ngx-header',
-  styleUrls: ['./header.component.scss'],
-  templateUrl: './header.component.html',
+  styleUrls: ['header.component.scss'],
+  templateUrl: 'header.component.html',
 })
 export class HeaderComponent implements OnInit, OnDestroy {
 
   private destroy$: Subject<void> = new Subject<void>();
   userPictureOnly: boolean = false;
   user: any;
-
+  private _subscription: Subscription;
+  showCloseButton = false;
   themes = [
     {
       value: 'default',
-      name: 'Light',
+      name: 'Claro',
     },
     {
       value: 'dark',
-      name: 'Dark',
+      name: 'Oscuro',
     },
     {
       value: 'cosmic',
-      name: 'Cosmic',
+      name: 'Cósmico',
     },
     {
       value: 'corporate',
-      name: 'Corporate',
+      name: 'Corporativo',
     },
   ];
 
   currentTheme = 'default';
 
-  userMenu = [ { title: 'Profile' }, { title: 'Log out' } ];
-
   constructor(private sidebarService: NbSidebarService,
               private menuService: NbMenuService,
               private themeService: NbThemeService,
-              private userService: UserData,
+              private commonService: CommonService,
               private layoutService: LayoutService,
+              private router: Router,
               private breakpointService: NbMediaBreakpointsService) {
   }
 
   ngOnInit() {
     this.currentTheme = this.themeService.currentTheme;
+      this._subscription = this.commonService.notifier.subscribe(() => {
+        this.showCloseButton = !this.showCloseButton;
+      });
 
-    this.userService.getUsers()
-      .pipe(takeUntil(this.destroy$))
-      .subscribe((users: any) => this.user = users.nick);
+
 
     const { xl } = this.breakpointService.getBreakpointsMap();
     this.themeService.onMediaQueryChange()
@@ -78,6 +81,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   changeTheme(themeName: string) {
     this.themeService.changeTheme(themeName);
+    localStorage.setItem('themeName', themeName);
   }
 
   toggleSidebar(): boolean {
@@ -90,5 +94,14 @@ export class HeaderComponent implements OnInit, OnDestroy {
   navigateHome() {
     this.menuService.navigateHome();
     return false;
+  }
+
+  emitClose() {
+    this.commonService.notifyHeader('close');
+  }
+
+  logout() {
+    Storage.remove('user');
+    this.router.navigate(['auth/logout']);
   }
 }

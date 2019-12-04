@@ -1,0 +1,115 @@
+<form [formGroup]="form" (submit)="save()" [nbSpinner]="loader" nbSpinnerStatus="success" nbSpinnerMessage="Cargando...">
+  <div class="modal-body">
+    <div class="row">
+      <div class="col-sm-6">
+        <debtor-select [readonly]="isReadOnly" formControlName="debtor_id"></debtor-select>
+      </div>
+
+      <div class="col-sm-6">
+       <creditor-select [readonly]="isReadOnly" formControlName="creditor_id"></creditor-select>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-6">
+        <div class="form-group">
+          <label for="start_date">Fecha inicio</label>
+          <input nbInput type="date" (change)="onEndDate()" class="form-control" formControlName="start_date" id="start_date">
+        </div>
+      </div>
+      <div class="col-sm-6">
+        <div class="form-group">
+          <label for="final_date">Fecha vence</label>
+          <input nbInput type="date" class="form-control" formControlName="final_date" id="final_date">
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-sm-6">
+       <immovable-select [readonly]="isReadOnly" formControlName="immovable_id" [debtor_id]="form.value.debtor_id"></immovable-select>
+      </div>
+      <div class="col-sm-6">
+        <div class="form-group">
+          <label for="mortgage_percent">Porcentaje hipotecado</label>
+          <input nbInput type="number" min="0" max="100" class="form-control" formControlName="mortgage_percent" id="mortgage_percent">
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-sm-6">
+        <div class="form-group">
+          <label for="type">Tipo de hipoteca</label>
+          <select nbInput class="form-control" id="type" formControlName="type">
+            <option value="Cerrada">Cerrada</option>
+            <option value="Abierta">Abierta</option>
+          </select>
+        </div>
+      </div>
+      <div class="col-sm-6 add-pay" *ngIf="form.value.type == 'Abierta'">
+        <div class="form-group">
+          <button status="primary" nbButton outline type="button" (click)="addPromissoryNote()">Agregar pagaré</button>
+        </div>
+      </div>
+    </div>
+
+    <div *ngIf="form.value.type == 'Abierta'" class="promissory_notes">
+      <div class="row" *ngFor="let p of form.get('promissory_notes').controls; let i = index;">
+        <div class="col-sm-4" formArrayName="promissory_notes">
+          <div class="form-group" [formGroupName]="i">
+            <label [for]="'pay-'+i"><b>Pagaré #{{i+1}}</b></label>
+            <input nbInput min="0" type="number" class="form-control" formControlName="value" [id]="'pay-'+i" placeholder="Valor">
+          </div>
+        </div>
+        <div class="col-sm-2 trash-pay">
+          <div class="form-group">
+            <button class="btn btn-sm btn-hero-danger" type="button" (click)="removePromissoryNote(i)"><i class="fa fa-trash-o"></i></button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row" *ngIf="isReadOnly">
+      <div class="col-sm-6">
+        <div class="form-group">
+          <label for="capital">Saldo actual</label>
+          <input nbInput type="number" min="0" class="form-control" formControlName="capital" id="capital">
+        </div>
+      </div>
+      <div class="col-sm-6">
+        <div class="form-group">
+          <label for="current_balance">Saldo total acumulado</label>
+          <input nbInput type="number" min="0" class="form-control" formControlName="current_balance" id="current_balance">
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-sm-6">
+        <div class="form-group">
+          <label for="initial_balance">Capital inicial</label>
+          <input nbInput type="number" min="0" class="form-control" formControlName="initial_balance" id="initial_balance">
+        </div>
+      </div>
+      <div class="col-sm-6">
+        <div class="form-group">
+          <label for="interest">Porcentaje de interés</label>
+          <input nbInput type="number" min="0" class="form-control" formControlName="interest" id="interest">
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-sm-6">
+        <div class="form-group">
+          <label for="fee_admin">Administración</label>
+          <input nbInput type="number" min="0" class="form-control" formControlName="fee_admin" id="fee_admin">
+        </div>
+      </div>
+    </div>
+
+  </div>
+  <div class="modal-footer">
+    <button status="info" nbButton (click)="closeWindow()" ghost>Cancelar</button>
+    <button [disabled]="form.invalid" status="success" nbButton outline>Guardar</button>
+  </div>
+</form>

@@ -1,0 +1,20 @@
+// windows vertical scroll patch
+nb-windows-container > nb-window > nb-card > nb-card-body {
+  height: auto;
+  max-height: 80vh;
+}
+
+.main-wrapper {
+  height: auto;
+  min-height: 72vh;
+}
+
+.temp-trash {
+  font-size: 1.8em;
+  color: #db0000;
+  cursor: pointer;
+}
+
+.table {
+  color: inherit !important;
+}

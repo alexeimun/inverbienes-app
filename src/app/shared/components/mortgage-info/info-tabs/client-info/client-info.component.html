@@ -1,0 +1,41 @@
+<nb-card>
+  <nb-card-header>
+    Información de los clientes
+  </nb-card-header>
+  <nb-card-body>
+    <div class="row">
+      <div class="col-sm-6">
+        <h4><i class="fa fa-user-circle"></i> Deudor</h4>
+        <p><b>Nombre: </b>{{mortgage?.debtor?.name}}</p>
+        <p><b>CC: </b>{{mortgage?.debtor?.document}}</p>
+        <p><b>Celular: </b>{{mortgage?.debtor?.cell_phone}}</p>
+      </div>
+      <div class="col-sm-6">
+        <h4><i class="fa fa-user-circle"></i> Acreedor</h4>
+        <p><b>Nombre: </b>{{mortgage?.creditor?.name}}</p>
+        <p><b>CC: </b>{{mortgage?.creditor?.document}}</p>
+        <p><b>Celular: </b>{{mortgage?.creditor?.cell_phone}}</p>
+      </div>
+    </div>
+    <h4><i class="fa fa-home"></i> Hipoteca</h4>
+    <hr>
+    <div class="row">
+      <div class="col-sm-4">
+        <p><b>Matricula inmobiliaria: </b> {{mortgage?.immovable.registration}}</p>
+        <p><b>Número de escritura: </b> {{mortgage?.immovable.writting_number}}</p>
+        <p><b>Inicio hipoteca: </b> {{toDate(mortgage?.start_date)}}</p>
+        <p><b>Termina hipoteca: </b> {{toDate(mortgage?.final_date)}}</p>
+      </div>
+      <div class="col-sm-4">
+        <p><b>Fecha de constitución: </b> {{mortgage?.immovable.constitution}}</p>
+        <p><b>Porcentaje pagado de la deuda: </b> {{((1-(mortgage?.capital/mortgage?.current_balance)) * 100).toFixed(2)}}%</p>
+        <p><b>Total abonado al capital: </b> {{toCash(mortgage?.current_balance-mortgage?.capital)}}</p>
+      </div>
+      <div class="col-sm-4">
+        <p><b>Saldo actual: </b> ${{toCash(mortgage?.capital)}}</p>
+        <p><b>Saldo inicial: </b> ${{toCash(mortgage?.initial_balance)}}</p>
+        <p><b>Saldo total acumulado: </b> ${{toCash(mortgage?.current_balance)}}</p>
+      </div>
+    </div>
+  </nb-card-body>
+</nb-card>

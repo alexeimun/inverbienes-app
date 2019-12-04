@@ -1,0 +1,33 @@
+<nb-card class="main-wrapper">
+  <nb-card-header>
+    <h4 class="text-center"><i class="fa fa-paperclip"></i> Acreedores vs Deudres</h4>
+  </nb-card-header>
+  <nb-card-body>
+    <form [formGroup]="form" (submit)="print()" [nbSpinner]="loader" nbSpinnerStatus="success" nbSpinnerMessage="Cargando...">
+      <div class="row">
+        <div class="col-sm-4 mx-auto">
+          <div class="form-group">
+            <label for="start_date">Fecha inicio</label>
+            <input nbInput type="date" formControlName="start_date" class="form-control" id="start_date">
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-4 mx-auto">
+          <div class="form-group">
+            <label for="end_date">Fecha fin</label>
+            <input nbInput type="date" formControlName="end_date" class="form-control" id="end_date">
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-2 mx-auto">
+          <div class="form-group">
+            <button status="success" nbButton outline [disabled]="form.invalid"> Generar informe</button>
+          </div>
+        </div>
+      </div>
+    </form>
+  </nb-card-body>
+</nb-card>
+<daily-block-printable></daily-block-printable>

@@ -1,0 +1,42 @@
+<nb-card class="main-wrapper">
+  <nb-card-header>
+    <h4 class="text-center"><i class="fa fa-paperclip"></i> Informe deudor</h4>
+  </nb-card-header>
+  <nb-card-body>
+    <form [formGroup]="form" (submit)="print()" [nbSpinner]="loader" nbSpinnerStatus="success" nbSpinnerMessage="Cargando...">
+      <div class="row">
+        <div class="mx-auto col-sm-4">
+          <debtor-select formControlName="debtor_id"></debtor-select>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-4 mx-auto">
+          <div class="form-group">
+            <label for="from_year">Desde</label>
+            <select nbInput formControlName="from" class="form-control" id="from_year">
+              <option *ngFor="let year of years" [value]="year">{{year}}</option>
+            </select>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-4 mx-auto">
+          <div class="form-group">
+            <label for="to_year">Hasta</label>
+            <select nbInput formControlName="to" class="form-control" id="to_year">
+              <option *ngFor="let year of years" [value]="year">{{year}}</option>
+            </select>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-2 mx-auto">
+          <div class="form-group">
+            <button status="success" nbButton outline [disabled]="form.invalid"> Generar informe</button>
+          </div>
+        </div>
+      </div>
+    </form>
+  </nb-card-body>
+</nb-card>
+<report-debtor-printable></report-debtor-printable>

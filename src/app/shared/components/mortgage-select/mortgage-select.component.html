@@ -1,0 +1,15 @@
+<div class="form-group">
+  <label for="mortgage_id">{{label}}</label>
+  <input nbInput autocomplete="off" type="text" [readonly]="readonly" class="form-control" id="mortgage_id" (focus)="toggleList(true)" (blur)="toggleList(false)" [(ngModel)]="input">
+  <div class="list-items" *ngIf="showList && !readonly">
+    <nb-card *ngFor="let mortgage of mortgages|filter:input" (click)="selectSearchResult(mortgage)">
+      <nb-card-body>
+        <i class="nb-arrow-right"></i> <b>Deudor: </b><i>{{mortgage.debtor.name}} - {{mortgage.debtor.document}}</i> -
+        <b>Mat. inmobiliaria: </b><i>{{mortgage.immovable.registration}}</i>
+      </nb-card-body>
+    </nb-card>
+    <nb-card *ngIf="(!mortgages.length || !(mortgages|filter:input).length) && !readonly">
+      <nb-card-body><i class="nb-close-circled"></i> No hay solicitudes para mostrar</nb-card-body>
+    </nb-card>
+  </div>
+</div>
